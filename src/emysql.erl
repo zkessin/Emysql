@@ -206,7 +206,15 @@ default_timeout() ->
 %% emysql_conn_mgr:add_pool() is translated into a blocking gen-server call.
 %% @end doc: hd feb 11
 
-add_pool(PoolId, Size, User, Password, Host, Port, Database, Encoding) ->
+add_pool(PoolId, Size, User, Password, Host, Port, Database, Encoding) 
+  when is_atom(PoolId),
+       is_integer(Size),
+       is_list(User),
+       is_list(Password),
+       is_list(Host),
+       is_integer(Port),
+       is_list(Database),
+       is_atom(Encoding) ->
     Pool = #pool{
         pool_id = PoolId,
         size = Size,
